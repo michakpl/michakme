@@ -3,43 +3,13 @@
     - type: "PUSH"
       refs:
         - "refs/pull/*"
-        - "refs/heads/main"
   actions:
     - action: "terraform init & plan"
-      type: BUILD
-      docker_image_name: hashicorp/terraform
-      docker_image_tag: "1.14"
+      type: "BUILD"
+      docker_image_name: "hashicorp/terraform"
+      docker_image_tag: "1.14.7"
       working_directory: "/buddy/michakme/tf"
-      execute_commands:
-        - terraform plan
-      environment_variables:
-        - key: TF_BACKEND_CONFIG_BUCKET
-          value: $TF_BACKEND_CONFIG_BUCKET
-        - key: TF_BACKEND_CONFIG_REGION
-          value: $TF_BACKEND_CONFIG_REGION
-        - key: TF_BACKEND_CONFIG_ENDPOINT
-          value: $TF_BACKEND_CONFIG_ENDPOINT
-        - key: SCW_ACCESS_KEY
-          value: $SCW_ACCESS_KEY
-        - key: SCW_ACCESS_SECRET
-          value: $SCW_ACCESS_SECRET
-        - key: TF_VAR_bunny_api_key
-          value: $TF_VAR_BUNNY_API_KEY
-        - key: TF_VAR_project_name
-          value: $TF_VAR_PROJECT_NAME
-        - key: TF_VAR_custom_hostname
-          value: $TF_VAR_CUSTOM_HOSTNAME
-
-- pipeline: "Terraform Apply"
-  trigger_mode: MANUAL
-  refs:
-    - "refs/heads/main"
-  actions:
-    - action: "terraform init & apply"
-      type: BUILD
-      docker_image_name: hashicorp/terraform
-      docker_image_tag: "1.14"
-      working_directory: "/buddy/michakme/tf"
+      reset_entrypoint: true
       execute_commands:
         - terraform init
             -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
@@ -47,21 +17,36 @@
             -backend-config="endpoints={s3=\"$TF_BACKEND_CONFIG_ENDPOINT\"}"
             -backend-config="access_key=$SCW_ACCESS_KEY"
             -backend-config="secret_key=$SCW_ACCESS_SECRET"
+        - terraform plan
+- pipeline: "Terraform Plan and Apply"
+  events:
+    - type: "PUSH"
+      refs:
+        - "refs/heads/main"
+  actions:
+    - action: "terraform init & plan"
+      type: "BUILD"
+      docker_image_name: "hashicorp/terraform"
+      docker_image_tag: "1.14.7"
+      working_directory: "/buddy/michakme/tf"
+      reset_entrypoint: true
+      execute_commands:
+        - terraform init
+          -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
+          -backend-config="region=$TF_BACKEND_CONFIG_REGION"
+          -backend-config="endpoints={s3=\"$TF_BACKEND_CONFIG_ENDPOINT\"}"
+          -backend-config="access_key=$SCW_ACCESS_KEY"
+          -backend-config="secret_key=$SCW_ACCESS_SECRET"
+        - terraform plan
+    - action: "wait for approval"
+      type: "WAIT_FOR_APPLY"
+      trigger_time: "ON_EVERY_EXECUTION"
+      comment: "Do you want to apply the plan?"
+    - action: "terraform apply"
+      type: "BUILD"
+      docker_image_name: "hashicorp/terraform"
+      docker_image_tag: "1.14.7"
+      working_directory: "/buddy/michakme/tf"
+      reset_entrypoint: true
+      execute_commands:
         - terraform apply -auto-approve
-      environment_variables:
-        - key: TF_BACKEND_CONFIG_BUCKET
-          value: $TF_BACKEND_CONFIG_BUCKET
-        - key: TF_BACKEND_CONFIG_REGION
-          value: $TF_BACKEND_CONFIG_REGION
-        - key: TF_BACKEND_CONFIG_ENDPOINT
-          value: $TF_BACKEND_CONFIG_ENDPOINT
-        - key: SCW_ACCESS_KEY
-          value: $SCW_ACCESS_KEY
-        - key: SCW_ACCESS_SECRET
-          value: $SCW_ACCESS_SECRET
-        - key: TF_VAR_bunny_api_key
-          value: $TF_VAR_BUNNY_API_KEY
-        - key: TF_VAR_project_name
-          value: $TF_VAR_PROJECT_NAME
-        - key: TF_VAR_custom_hostname
-          value: $TF_VAR_CUSTOM_HOSTNAME
