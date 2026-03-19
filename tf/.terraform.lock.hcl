@@ -1,0 +1,29 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/bunnyway/bunnynet" {
+  version     = "0.13.4"
+  constraints = "~> 0.13.0"
+  hashes = [
+    "h1:W4pDBoFOey25b/VRTewyAqzv+Xr+3zCVbnRRzPaXS2c=",
+    "zh:0e6df94293a7859959de39ca1d56b3d5c1b4ce55eea6e92b04f9ca8aafaba231",
+    "zh:11e882c60fd78bf503fa2bf27f2a38c95420c9175592a4304b6583977f1562ff",
+    "zh:254bced0a359115f474669f1e2ce7510d543547852f7d5f7418c61bf6fe3b6d4",
+    "zh:331ad3b5ffe986aaab766afd84fbc02d415e4d6387578f83045a088b272132b3",
+    "zh:431213f35b575d7ec5f5795bef6cda38f7d652a3eae2fdba8c6afbfe67d86c57",
+    "zh:51f54c160deb26670947af0ef19fc6b2f198e58e97c986a70386588db62c6326",
+    "zh:5e3d843ce3ed808898f459d8df2c711fb948e4f68a4383d8a29c5ff150ad620d",
+    "zh:69d2b75371bc71a55daff9b751e88a7b53a1acca805b570adbaaeb25fb29b1cb",
+    "zh:6c859258c7b6b0dd7857dec897656acbff12127b7ba1e6a2692a61c2125cc87b",
+    "zh:828b8a1f095436706883bffd8ffd2a522b9025fb57f34b4a9c003fc0d841ac7c",
+    "zh:839a56585ffb3702b1bda4e53220ea6e20c7590d645f9f2dfd238f2988598c20",
+    "zh:890df766e9b839623b1f0437355032a3c006226a6c200cd911e15ee1a9014e9f",
+    "zh:9ac707f81ac6631bd6d301ab903b3cd599d246d38b4f4a3221ef7eed58396db7",
+    "zh:a0bd1b34aa77247000842552386aa82d4e29edc4f0038007666fc697c2fe572c",
+    "zh:a33e995039454e9a2961e1586a5981df4f63bd409f9726617747a52e1d0ea646",
+    "zh:b714bcb76ad39eb112268861d36316b6be2b1e75554e57756cf770bf837b07e8",
+    "zh:d81726a31fc7cc5c8b42651144b28532f633994898e96e495a7e20eddbae05bb",
+    "zh:e0441c4c9c1e9e0f180b375cc72079ae532b2f2028c4e38a648bf38b971ca42a",
+    "zh:f315dc180ebebcd371c8eed19c7756b29adac33c0d5b9d4880e3c0c6e4f3dd6a",
+  ]
+}
