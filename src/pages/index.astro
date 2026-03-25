@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Michak's" isHome={true}>
+  <div class="flex flex-col gap-10 pt-16 pb-8">
+    <div>
+      <h1
+        class="tracking-tight"
+        style="font-family: 'Montserrat Alternates', sans-serif; font-size: clamp(3rem, 10vw, 6rem); line-height: 1.05; font-weight: 400; color: #2E2A26;"
+      >
+        Michak's
+      </h1>
+      <p
+        class="mt-3"
+        style="font-family: 'Montserrat Alternates', sans-serif; font-size: 1.1rem; letter-spacing: 0.01em; color: #96908A;"
+      >
+        space for notes
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-2 pt-2">
+      <a href="/blog" class="nav-link flex items-center gap-2 w-fit transition-colors" style="color: #2E2A26; font-size: 1rem; text-decoration: none;">
+        <span class="nav-line" style="display: inline-block; height: 1px; background-color: #C0B9B2; width: 1rem; transition: width 200ms;"></span>
+        blog
+      </a>
+      <a href="/about" class="nav-link flex items-center gap-2 w-fit transition-colors" style="color: #2E2A26; font-size: 1rem; text-decoration: none;">
+        <span class="nav-line" style="display: inline-block; height: 1px; background-color: #C0B9B2; width: 1rem; transition: width 200ms;"></span>
+        about
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .nav-link:hover {
+    color: #96908A !important;
+  }
+
+  .nav-link:hover .nav-line {
+    width: 1.5rem !important;
+  }
+</style>

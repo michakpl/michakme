@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  isHome?: boolean;
+  activePath?: string;
+}
+
+const { title = "Minimalist personal page", isHome = false, activePath = "/" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen" style="background-color: #F6F1EA; color: #2E2A26; font-family: 'Montserrat Alternates', sans-serif;">
+    {!isHome && (
+      <header class="px-6 py-6" style="border-bottom: 1px solid #E3DDD6;">
+        <nav class="max-w-2xl mx-auto flex items-center justify-between">
+          <a href="/" class="nav-home tracking-tight transition-colors" style="color: #2E2A26; text-decoration: none;">
+            Michak's
+          </a>
+          <div class="flex gap-6">
+            <a
+              href="/blog"
+              class="text-sm transition-colors nav-link"
+              style={`color: ${activePath.startsWith('/blog') ? '#2E2A26' : '#96908A'}; text-decoration: none;`}
+              data-active={activePath.startsWith('/blog') ? 'true' : 'false'}
+            >
+              blog
+            </a>
+            <a
+              href="/about"
+              class="text-sm transition-colors nav-link"
+              style={`color: ${activePath === '/about' ? '#2E2A26' : '#96908A'}; text-decoration: none;`}
+              data-active={activePath === '/about' ? 'true' : 'false'}
+            >
+              about
+            </a>
+          </div>
+        </nav>
+      </header>
+    )}
+    <main class="max-w-2xl mx-auto px-6 py-12">
+      <slot />
+    </main>
+    <footer class="max-w-2xl mx-auto px-6 pb-12">
+      <p style="font-size: 0.75rem; color: #C0B9B2;">
+        &copy; {new Date().getFullYear()} Michak
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .nav-home:hover {
+    color: #96908A !important;
+  }
+
+  .nav-link:hover {
+    color: #2E2A26 !important;
+  }
+</style>

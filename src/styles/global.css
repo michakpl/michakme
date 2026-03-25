@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #F6F1EA;
+  --foreground: #2E2A26;
+  --border: #E3DDD6;
+  --muted: #96908A;
+  --very-muted: #C0B9B2;
+  --text-soft: #5C5650;
+  --text-mid: #6B6560;
+  --code-bg: #EDE8E0;
+  --code-header-bg: #E6E0D8;
+  --code-text: #3A3530;
+}
+
+@layer base {
+  html {
+    font-size: var(--font-size);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Montserrat Alternates', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sorted = posts.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Layout title="Blog — Michak's" activePath="/blog">
+  <h1
+    class="mb-10 tracking-tight"
+    style="font-size: 1.5rem; font-weight: 400; font-family: 'Montserrat Alternates', sans-serif; color: #2E2A26;"
+  >
+    Blog
+  </h1>
+
+  <ul class="flex flex-col" style="list-style: none; padding: 0; margin: 0;">
+    {sorted.map((post, i) => (
+      <li>
+        <a
+          href={`/blog/${post.id}`}
+          class="post-link flex items-baseline justify-between py-4 gap-4 transition-colors"
+          style="color: #2E2A26; text-decoration: none;"
+        >
+          <span class="post-title transition-colors" style="font-size: 1rem; color: #2E2A26;">
+            {post.data.title}
+          </span>
+          <time
+            class="shrink-0 tabular-nums"
+            style="font-size: 0.8rem; color: #C0B9B2;"
+            datetime={post.data.date}
+          >
+            {formatDate(post.data.date)}
+          </time>
+        </a>
+        {i < sorted.length - 1 && (
+          <div style="height: 1px; background-color: #E3DDD6;" />
+        )}
+      </li>
+    ))}
+  </ul>
+</Layout>
+
+<style>
+  .post-link:hover .post-title {
+    color: #96908A !important;
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Layout title={`${post.data.title} — Michak's`} activePath="/blog">
+  <a
+    href="/blog"
+    class="back-link transition-colors text-sm inline-block mb-10"
+    style="color: #96908A; text-decoration: none;"
+  >
+    &larr; blog
+  </a>
+
+  <article>
+    <header class="mb-8">
+      <h1
+        class="tracking-tight mb-3"
+        style="font-family: 'Montserrat Alternates', sans-serif; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 400; line-height: 1.25; color: #2E2A26;"
+      >
+        {post.data.title}
+      </h1>
+      <time style="font-size: 0.82rem; color: #C0B9B2;" datetime={post.data.date}>
+        {formatDate(post.data.date)}
+      </time>
+    </header>
+
+    <div class="prose-content">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .back-link:hover {
+    color: #2E2A26 !important;
+  }
+
+  .prose-content :global(p) {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #5C5650;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-content :global(h2) {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2E2A26;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .prose-content :global(pre) {
+    margin: 1.25rem 0;
+    padding: 1.1rem 1.25rem;
+    background-color: #EDE8E0;
+    border: 1px solid #E3DDD6;
+    border-radius: 0.25rem;
+    overflow-x: auto;
+    font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: #3A3530;
+  }
+
+  .prose-content :global(code) {
+    font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+    font-size: 0.82rem;
+  }
+
+  .prose-content :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .prose-content :global(ul li) {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 1rem;
+    color: #5C5650;
+    line-height: 1.75;
+  }
+
+  .prose-content :global(ul li::before) {
+    content: '—';
+    color: #C0B9B2;
+    flex-shrink: 0;
+  }
+</style>

@@ -18,7 +18,7 @@
             -backend-config="access_key=$SCW_ACCESS_KEY"
             -backend-config="secret_key=$SCW_ACCESS_SECRET"
         - terraform plan
-- pipeline: "Terraform Plan and Apply"
+- pipeline: "Plan, Build and Deploy"
   events:
     - type: "PUSH"
       refs:
@@ -50,3 +50,12 @@
       reset_entrypoint: true
       execute_commands:
         - terraform apply -auto-approve
+    - action: "install dependencies and build"
+      type: "BUILD"
+      docker_image_name: "node"
+      docker_image_tag: "25-alpine"
+      working_directory: "/buddy/michakme"
+      execute_commands:
+        - npm install -g pnpm@latest-10
+        - pnpm install
+        - pnpm run build
