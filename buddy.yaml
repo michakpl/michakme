@@ -38,7 +38,7 @@
           -backend-config="access_key=$SCW_ACCESS_KEY"
           -backend-config="secret_key=$SCW_ACCESS_SECRET"
         - terraform plan
-    - action: "wait for approval"
+    - action: "wait for plan approval"
       type: "WAIT_FOR_APPLY"
       trigger_time: "ON_EVERY_EXECUTION"
       comment: "Do you want to apply the plan?"
@@ -59,3 +59,33 @@
         - npm install -g pnpm@latest-10
         - pnpm install
         - pnpm run build
+    - action: "wait for deploy approval"
+      type: "WAIT_FOR_APPLY"
+      trigger_time: "ON_EVERY_EXECUTION"
+      comment: "Do you want to deploy?"
+    - action: "deploy"
+      type: "TRANSFER"
+      local_path: "/buddy/michakme/dist"
+      remote_path: "/"
+      deployment_excludes:
+        - "buddy.yaml"
+        - ".git"
+        - ".env*"
+      targets:
+      - target: "production"
+        type: "FTP"
+        secure: true
+        host: $FTP_HOST
+        port: $FTP_PORT
+        auth:
+          username: $FTP_USERNAME
+          password: $FTP_PASSWORD
+    - action: "purge cache"
+      type: "HTTP"
+      notification_url: ""
+      method_url: "https://api.bunny.net/pullzone/$PULLZONE_ID/purgeCache"
+      headers:
+        - name: "AccessKey"
+          value: $TF_VAR_bunny_api_key
+        - name: "Content-Type"
+          value: "application/json"
