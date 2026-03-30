@@ -28,9 +28,6 @@ resource "bunnynet_pullzone" "blog" {
 
   limit_bandwidth = var.monthly_bandwidth_limit_gb * 1024 * 1024 * 1024
 
-  cors_enabled    = true
-  cors_extensions = ["ttf", "woff", "woff2", "eot", "otf", "css", "js"]
-
   block_post_requests = true
 
   allow_referers = [
