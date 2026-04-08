@@ -17,34 +17,29 @@ function formatDate(dateStr: string): string {
 ---
 
 <Layout title="Blog — Michak's" activePath="/blog">
-  <h1
-    class="mb-10 tracking-tight"
-    style="font-size: 1.5rem; font-weight: 400; font-family: 'Montserrat Alternates', sans-serif; color: #2E2A26;"
-  >
+  <h1 class="page-title mb-10 tracking-tight">
     Blog
   </h1>
 
-  <ul class="flex flex-col" style="list-style: none; padding: 0; margin: 0;">
+  <ul class="post-list flex flex-col">
     {sorted.map((post, i) => (
       <li>
         <a
           href={`/blog/${post.id}`}
           class="post-link flex items-baseline justify-between py-4 gap-4 transition-colors"
-          style="color: #2E2A26; text-decoration: none;"
         >
-          <span class="post-title transition-colors" style="font-size: 1rem; color: #2E2A26;">
+          <span class="post-title transition-colors">
             {post.data.title}
           </span>
           <time
-            class="shrink-0 tabular-nums"
-            style="font-size: 0.8rem; color: #C0B9B2;"
+            class="post-date shrink-0 tabular-nums"
             datetime={post.data.date}
           >
             {formatDate(post.data.date)}
           </time>
         </a>
         {i < sorted.length - 1 && (
-          <div style="height: 1px; background-color: #E3DDD6;" />
+          <div class="post-divider" />
         )}
       </li>
     ))}
@@ -52,7 +47,33 @@ function formatDate(dateStr: string): string {
 </Layout>
 
 <style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-link {
+    color: var(--foreground);
+    text-decoration: none;
+  }
+
+  .post-title {
+    font-size: 1rem;
+    color: var(--foreground);
+  }
+
+  .post-date {
+    font-size: 0.8rem;
+    color: var(--very-muted);
+  }
+
+  .post-divider {
+    height: 1px;
+    background-color: var(--border);
+  }
+
   .post-link:hover .post-title {
-    color: #96908A !important;
+    color: var(--muted);
   }
 </style>

@@ -26,20 +26,16 @@ function formatDate(dateStr: string): string {
   <a
     href="/blog"
     class="back-link transition-colors text-sm inline-block mb-10"
-    style="color: #96908A; text-decoration: none;"
   >
     &larr; blog
   </a>
 
   <article>
     <header class="mb-8">
-      <h1
-        class="tracking-tight mb-3"
-        style="font-family: 'Montserrat Alternates', sans-serif; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 400; line-height: 1.25; color: #2E2A26;"
-      >
+      <h1 class="post-heading tracking-tight mb-3">
         {post.data.title}
       </h1>
-      <time style="font-size: 0.82rem; color: #C0B9B2;" datetime={post.data.date}>
+      <time class="post-date" datetime={post.data.date}>
         {formatDate(post.data.date)}
       </time>
     </header>
@@ -51,21 +47,39 @@ function formatDate(dateStr: string): string {
 </Layout>
 
 <style>
+  .back-link {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
   .back-link:hover {
-    color: #2E2A26 !important;
+    color: var(--foreground);
+  }
+
+  .post-heading {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--foreground);
+  }
+
+  .post-date {
+    font-size: 0.82rem;
+    color: var(--very-muted);
   }
 
   .prose-content :global(p) {
     font-size: 1rem;
     line-height: 1.75;
-    color: #5C5650;
+    color: var(--text-soft);
     margin-bottom: 1.25rem;
   }
 
   .prose-content :global(h2) {
     font-size: 1.1rem;
     font-weight: 500;
-    color: #2E2A26;
+    color: var(--foreground);
     margin-top: 2rem;
     margin-bottom: 0.75rem;
     letter-spacing: -0.01em;
@@ -74,14 +88,14 @@ function formatDate(dateStr: string): string {
   .prose-content :global(pre) {
     margin: 1.25rem 0;
     padding: 1.1rem 1.25rem;
-    background-color: #EDE8E0;
-    border: 1px solid #E3DDD6;
+    background-color: var(--code-bg);
+    border: 1px solid var(--border);
     border-radius: 0.25rem;
     overflow-x: auto;
     font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
     font-size: 0.82rem;
     line-height: 1.7;
-    color: #3A3530;
+    color: var(--code-text);
   }
 
   .prose-content :global(code) {
@@ -102,13 +116,13 @@ function formatDate(dateStr: string): string {
     display: flex;
     gap: 0.75rem;
     font-size: 1rem;
-    color: #5C5650;
+    color: var(--text-soft);
     line-height: 1.75;
   }
 
   .prose-content :global(ul li::before) {
     content: '—';
-    color: #C0B9B2;
+    color: var(--very-muted);
     flex-shrink: 0;
   }
 </style>

@@ -18,18 +18,15 @@ const { title = "Minimalist personal page", isHome = false, activePath = "/" } =
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen" style="background-color: #F6F1EA; color: #2E2A26; font-family: 'Montserrat Alternates', sans-serif;">
+  <body class="min-h-screen">
     {!isHome && (
-      <header class="px-6 py-6" style="border-bottom: 1px solid #E3DDD6;">
+      <header class="site-header px-6 py-6">
         <nav class="max-w-2xl mx-auto flex items-center justify-between">
           <div>
-            <a href="/" class="nav-home tracking-tight transition-colors" style="color: #2E2A26; text-decoration: none;">
+            <a href="/" class="nav-home tracking-tight transition-colors">
               Michak's
             </a>
-            <p
-                class="mt-1"
-                style="font-family: 'Montserrat Alternates', sans-serif; font-size: 0.8rem; letter-spacing: 0.01em; color: #96908A;"
-            >
+            <p class="nav-subtitle mt-1">
               space for notes
             </p>
           </div>
@@ -37,7 +34,6 @@ const { title = "Minimalist personal page", isHome = false, activePath = "/" } =
             <a
               href="/blog"
               class="text-sm transition-colors nav-link"
-              style={`color: ${activePath.startsWith('/blog') ? '#2E2A26' : '#96908A'}; text-decoration: none;`}
               data-active={activePath.startsWith('/blog') ? 'true' : 'false'}
             >
               blog
@@ -45,7 +41,6 @@ const { title = "Minimalist personal page", isHome = false, activePath = "/" } =
             <a
               href="/about"
               class="text-sm transition-colors nav-link"
-              style={`color: ${activePath === '/about' ? '#2E2A26' : '#96908A'}; text-decoration: none;`}
               data-active={activePath === '/about' ? 'true' : 'false'}
             >
               about
@@ -58,7 +53,7 @@ const { title = "Minimalist personal page", isHome = false, activePath = "/" } =
       <slot />
     </main>
     <footer class="max-w-2xl mx-auto px-6 pb-12">
-      <p style="font-size: 0.75rem; color: #C0B9B2;">
+      <p class="footer-text">
         &copy; {new Date().getFullYear()} Michak
       </p>
     </footer>
@@ -66,11 +61,41 @@ const { title = "Minimalist personal page", isHome = false, activePath = "/" } =
 </html>
 
 <style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-home {
+    color: var(--foreground);
+    text-decoration: none;
+  }
+
   .nav-home:hover {
-    color: #96908A !important;
+    color: var(--muted);
+  }
+
+  .nav-subtitle {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--muted);
+  }
+
+  .nav-link[data-active="true"] {
+    color: var(--foreground);
   }
 
   .nav-link:hover {
-    color: #2E2A26 !important;
+    color: var(--foreground);
+  }
+
+  .footer-text {
+    font-size: 0.75rem;
+    color: var(--very-muted);
   }
 </style>

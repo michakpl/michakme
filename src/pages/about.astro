@@ -10,27 +10,21 @@ const elsewhere = entry?.data.elsewhere ?? [];
 ---
 
 <Layout title="About — Michak's" activePath="/about">
-  <h1
-    class="mb-10 tracking-tight"
-    style="font-size: 1.5rem; font-weight: 400; font-family: 'Montserrat Alternates', sans-serif; color: #2E2A26;"
-  >
+  <h1 class="page-title mb-10 tracking-tight">
     About
   </h1>
 
-  <div class="flex flex-col gap-5 about-prose" style="font-size: 1rem; line-height: 1.75; color: #5C5650;">
+  <div class="flex flex-col gap-5 about-prose">
     <Content />
 
     <div class="pt-4">
-      <h2
-        class="mb-4 tracking-tight"
-        style="font-size: 1rem; font-weight: 500; font-family: 'Montserrat Alternates', sans-serif; color: #2E2A26;"
-      >
+      <h2 class="section-heading mb-4 tracking-tight">
         Things I'm currently interested in
       </h2>
-      <ul style="list-style: none; padding: 0;" class="flex flex-col gap-2">
+      <ul class="bare-list flex flex-col gap-2">
         {interests.map((item) => (
-          <li class="flex gap-3" style="color: #6B6560;">
-            <span class="select-none" style="color: #C0B9B2;">—</span>
+          <li class="list-item gap-3">
+            <span class="dash select-none">—</span>
             <span>{item}</span>
           </li>
         ))}
@@ -38,20 +32,16 @@ const elsewhere = entry?.data.elsewhere ?? [];
     </div>
 
     <div class="pt-4">
-      <h2
-        class="mb-4 tracking-tight"
-        style="font-size: 1rem; font-weight: 500; font-family: 'Montserrat Alternates', sans-serif; color: #2E2A26;"
-      >
+      <h2 class="section-heading mb-4 tracking-tight">
         Elsewhere
       </h2>
-      <ul style="list-style: none; padding: 0;" class="flex flex-col gap-2">
+      <ul class="bare-list flex flex-col gap-2">
         {elsewhere.map(({ label, href }) => (
           <li class="flex gap-3">
-            <span class="select-none" style="color: #C0B9B2;">—</span>
+            <span class="dash select-none">—</span>
             <a
               href={href}
               class="elsewhere-link transition-colors"
-              style="color: #6B6560; text-decoration: underline; text-decoration-color: #C0B9B2; text-underline-offset: 3px;"
             >
               {label}
             </a>
@@ -63,8 +53,41 @@ const elsewhere = entry?.data.elsewhere ?? [];
 </Layout>
 
 <style>
+  .about-prose {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+  }
+
+  .section-heading {
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: var(--foreground);
+  }
+
+  .bare-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .list-item {
+    color: var(--text-mid);
+  }
+
+  .dash {
+    color: var(--very-muted);
+  }
+
+  .elsewhere-link {
+    color: var(--text-mid);
+    text-decoration: underline;
+    text-decoration-color: var(--very-muted);
+    text-underline-offset: 3px;
+  }
+
   .elsewhere-link:hover {
-    color: #96908A !important;
+    color: var(--muted);
   }
 
   .about-prose :global(p) {

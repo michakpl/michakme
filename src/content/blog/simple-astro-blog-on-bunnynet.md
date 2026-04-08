@@ -10,7 +10,7 @@ I decided to go with European solutions for infrastructure, as much as possible,
 
 In the **versions.tf** file, I specify the required Terraform version and the provider to Bunny.net. You can notice the skipping of validations for the backend. The reason behind it is that I store Terraform state in the Scaleway Object Storage, not AWS S3. However, both are compatible and Scaleway does not have their own backend to use.
 
-# Terraform
+## Terraform
 
 ```hcl
 terraform {
@@ -170,7 +170,7 @@ resource "bunnynet_pullzone_shield" "blog_shield" {
 }
 ```
 
-# Buddy Works CI
+## Buddy Works CI
 I use [Buddy Works](https://buddy.works) for CI, and it's maybe not so simple to set up, as there is no much ready-to-use documentation, especially for other less popular services like Bunny.net. But almost everything I do afterhours is for fun, and it was a great adventure to make it work.
 
 I decided to divide my CI into two pipelines: One for Pull Requests to just validate the Terraform plan and the second for the main branch to deploy the blog.
