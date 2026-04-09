@@ -140,12 +140,7 @@ resource "bunnynet_pullzone" "blog" {
   
   block_post_requests = true // Securing the pull zone by blocking POST requests
 
-  allow_referers = [
-    "https://${var.custom_hostname}",
-    "https://www.${var.custom_hostname}"
-  ] // Allow only requests from the custom hostname, as this blog self-references itself
-
-  block_no_referer = false // Allow requests from clients that don't send referer header, it should help to block hot linking attacks, while still allowing direct access to the blog from browser
+  block_no_referer = false // Allow requests from clients that don't send referer header, as it is common for some browsers, and I don't want to block them from accessing the content
 }
 
 resource "bunnynet_pullzone_hostname" "blog" {

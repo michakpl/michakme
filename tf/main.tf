@@ -30,11 +30,6 @@ resource "bunnynet_pullzone" "blog" {
 
   block_post_requests = true
 
-  allow_referers = [
-    "https://${var.custom_hostname}",
-    "https://www.${var.custom_hostname}"
-  ]
-
   block_no_referer = false
 }
 
