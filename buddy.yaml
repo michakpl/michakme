@@ -5,10 +5,8 @@
         - "refs/pull/*"
   actions:
     - action: "terraform init & plan"
-      type: "BUILD"
-      docker_image_name: "hashicorp/terraform"
-      docker_image_tag: "1.14.7"
-      working_directory: "/buddy/michakme/tf"
+      type: "TERRAFORM"
+      version: "1.14.7"
       reset_entrypoint: true
       execute_commands:
         - terraform init
@@ -25,12 +23,10 @@
         - "refs/heads/main"
   actions:
     - action: "terraform init & plan"
-      type: "BUILD"
-      docker_image_name: "hashicorp/terraform"
-      docker_image_tag: "1.14.7"
-      working_directory: "/buddy/michakme/tf"
-      reset_entrypoint: true
+      type: "TERRAFORM"
+      version: "1.14.7"
       execute_commands:
+        - cd tf/
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
           -backend-config="region=$TF_BACKEND_CONFIG_REGION"
@@ -43,11 +39,8 @@
       trigger_time: "ON_EVERY_EXECUTION"
       comment: "Do you want to apply the plan?"
     - action: "terraform apply"
-      type: "BUILD"
-      docker_image_name: "hashicorp/terraform"
-      docker_image_tag: "1.14.7"
-      working_directory: "/buddy/michakme/tf"
-      reset_entrypoint: true
+      type: "TERRAFORM"
+      version: "1.14.7"
       execute_commands:
         - terraform apply -auto-approve
     - action: "install dependencies and build"
