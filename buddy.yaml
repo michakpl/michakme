@@ -26,7 +26,6 @@
       type: "TERRAFORM"
       version: "1.14.7"
       execute_commands:
-        - cd tf/
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
           -backend-config="region=$TF_BACKEND_CONFIG_REGION"
