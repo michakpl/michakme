@@ -180,11 +180,8 @@ Below is the **buddy.yaml** file for both pipelines.
         - "refs/pull/*"
   actions:
     - action: "terraform init & plan"
-      type: "BUILD"
-      docker_image_name: "hashicorp/terraform"
-      docker_image_tag: "1.14.7"
-      working_directory: "/buddy/michakme/tf" # Path in Buddy Works is usually in format /buddy/repository_name
-      reset_entrypoint: true # This is needed to reset the entrypoint to the default one, to execute the commands in the working directory
+      type: "TERRAFORM"
+      version: "1.14.7"
       execute_commands: # All variables are set in Buddy Works as environment variables, and they are injected into the build environment during execution
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
@@ -200,11 +197,8 @@ Below is the **buddy.yaml** file for both pipelines.
         - "refs/heads/main"
   actions:
     - action: "terraform init & plan"
-      type: "BUILD"
-      docker_image_name: "hashicorp/terraform"
-      docker_image_tag: "1.14.7"
-      working_directory: "/buddy/michakme/tf"
-      reset_entrypoint: true
+      type: "TERRAFORM"
+      version: "1.14.7"
       execute_commands:
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
@@ -218,11 +212,8 @@ Below is the **buddy.yaml** file for both pipelines.
       trigger_time: "ON_EVERY_EXECUTION"
       comment: "Do you want to apply the plan?"
     - action: "terraform apply"
-      type: "BUILD"
-      docker_image_name: "hashicorp/terraform"
-      docker_image_tag: "1.14.7"
-      working_directory: "/buddy/michakme/tf"
-      reset_entrypoint: true
+      type: "TERRAFORM"
+      version: "1.14.7"
       execute_commands:
         - terraform apply -auto-approve
     - action: "install dependencies and build"
