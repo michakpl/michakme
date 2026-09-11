@@ -1,6 +1,8 @@
-- pipeline: "Terraform Plan test"
+- pipeline: "Terraform Plan"
   events:
     - type: "PUSH"
+      refs:
+        - "refs/pull/*"
   actions:
     - action: "terraform init & plan"
       type: "TERRAFORM"
@@ -12,3 +14,4 @@
             -backend-config="endpoints={s3=\"$TF_BACKEND_CONFIG_ENDPOINT\"}"
             -backend-config="access_key=$SCW_ACCESS_KEY"
             -backend-config="secret_key=$SCW_ACCESS_SECRET"
+        - terraform plan
