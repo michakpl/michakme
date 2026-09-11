@@ -15,9 +15,9 @@
     "test:e2e": "astro build && playwright test"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.1",
+    "@astrojs/react": "^6.0.5",
     "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.4.6",
+    "astro": "^7.3.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.2.2"

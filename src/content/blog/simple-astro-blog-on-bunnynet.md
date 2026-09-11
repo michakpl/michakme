@@ -250,7 +250,7 @@ Below is the **buddy.yaml** file for both pipelines.
     - action: "purge cache" # Purge the cache after deployment to make sure that the new content is served immediately. This is done with the Bunny.net API call
       type: "HTTP"
       notification_url: "https://api.bunny.net/pullzone/$PULLZONE_ID/purgeCache"
-      method_url: "POST"
+      method: "POST"
       headers:
         - name: "AccessKey"
           value: $TF_VAR_bunny_api_key

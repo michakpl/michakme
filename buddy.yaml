@@ -7,14 +7,14 @@
     - action: "terraform init & plan"
       type: "TERRAFORM"
       version: "1.14.7"
-      reset_entrypoint: true
-      execute_commands:
+      working_directory: "/tf"
+      commands:
         - terraform init
-            -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
-            -backend-config="region=$TF_BACKEND_CONFIG_REGION"
-            -backend-config="endpoints={s3=\"$TF_BACKEND_CONFIG_ENDPOINT\"}"
-            -backend-config="access_key=$SCW_ACCESS_KEY"
-            -backend-config="secret_key=$SCW_ACCESS_SECRET"
+          -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
+          -backend-config="region=$TF_BACKEND_CONFIG_REGION"
+          -backend-config="endpoints={s3=\"$TF_BACKEND_CONFIG_ENDPOINT\"}"
+          -backend-config="access_key=$SCW_ACCESS_KEY"
+          -backend-config="secret_key=$SCW_ACCESS_SECRET"
         - terraform plan
 - pipeline: "Plan, Build and Deploy"
   events:
@@ -25,7 +25,8 @@
     - action: "terraform init & plan"
       type: "TERRAFORM"
       version: "1.14.7"
-      execute_commands:
+      working_directory: "/tf"
+      commands:
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
           -backend-config="region=$TF_BACKEND_CONFIG_REGION"
@@ -40,14 +41,15 @@
     - action: "terraform apply"
       type: "TERRAFORM"
       version: "1.14.7"
-      execute_commands:
+      working_directory: "/tf"
+      commands:
         - terraform apply -auto-approve
     - action: "install dependencies and build"
       type: "BUILD"
       docker_image_name: "node"
       docker_image_tag: "25-alpine"
       working_directory: "/buddy/michakme"
-      execute_commands:
+      commands:
         - npm install -g pnpm@latest-10
         - pnpm install
         - pnpm run build
@@ -65,18 +67,18 @@
         - ".git"
         - ".env*"
       targets:
-      - target: "production"
-        type: "FTP"
-        secure: false
-        host: $FTP_HOST
-        port: $FTP_PORT
-        auth:
-          username: $FTP_USERNAME
-          password: $FTP_PASSWORD
+        - target: "production"
+          type: "FTP"
+          secure: false
+          host: $FTP_HOST
+          port: $FTP_PORT
+          auth:
+            username: $FTP_USERNAME
+            password: $FTP_PASSWORD
     - action: "purge cache"
       type: "HTTP"
       notification_url: "https://api.bunny.net/pullzone/$PULLZONE_ID/purgeCache"
-      method_url: "POST"
+      method: "POST"
       headers:
         - name: "AccessKey"
           value: $TF_VAR_bunny_api_key
