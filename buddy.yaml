@@ -7,7 +7,6 @@
     - action: "terraform init & plan"
       type: "TERRAFORM"
       version: "1.14.7"
-      reset_entrypoint: true
       execute_commands:
         - terraform init
             -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
@@ -76,7 +75,7 @@
     - action: "purge cache"
       type: "HTTP"
       notification_url: "https://api.bunny.net/pullzone/$PULLZONE_ID/purgeCache"
-      method_url: "POST"
+      method: "POST"
       headers:
         - name: "AccessKey"
           value: $TF_VAR_bunny_api_key
