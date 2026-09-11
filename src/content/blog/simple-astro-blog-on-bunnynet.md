@@ -19,7 +19,7 @@ terraform {
   required_providers {
     bunnynet = {
       source  = "BunnyWay/bunnynet"
-      version = "~> 0.13.0"
+      version = "~> 0.18.0"
     }
   }
 
@@ -182,7 +182,8 @@ Below is the **buddy.yaml** file for both pipelines.
     - action: "terraform init & plan"
       type: "TERRAFORM"
       version: "1.14.7"
-      execute_commands: # All variables are set in Buddy Works as environment variables, and they are injected into the build environment during execution
+      working_directory: "/tf"
+      commands: # All variables are set in Buddy Works as environment variables, and they are injected into the build environment during execution
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
           -backend-config="region=$TF_BACKEND_CONFIG_REGION"
@@ -199,7 +200,8 @@ Below is the **buddy.yaml** file for both pipelines.
     - action: "terraform init & plan"
       type: "TERRAFORM"
       version: "1.14.7"
-      execute_commands:
+      working_directory: "/tf"
+      commands:
         - terraform init
           -backend-config="bucket=$TF_BACKEND_CONFIG_BUCKET"
           -backend-config="region=$TF_BACKEND_CONFIG_REGION"
@@ -214,14 +216,15 @@ Below is the **buddy.yaml** file for both pipelines.
     - action: "terraform apply"
       type: "TERRAFORM"
       version: "1.14.7"
-      execute_commands:
+      working_directory: "/tf"
+      commands:
         - terraform apply -auto-approve
     - action: "install dependencies and build"
       type: "BUILD"
       docker_image_name: "node"
       docker_image_tag: "25-alpine"
       working_directory: "/buddy/michakme"
-      execute_commands:
+      commands:
         - npm install -g pnpm@latest-10 # In the Node.js 25 image there is no more corepack that was usually recommended to install pnpm
         - pnpm install
         - pnpm run build
