@@ -1,8 +1,6 @@
 - pipeline: "Terraform Plan"
   events:
     - type: "PUSH"
-      refs:
-        - "refs/pull/*"
   actions:
     - action: "terraform init & plan"
       type: "TERRAFORM"
