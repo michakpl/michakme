@@ -1,4 +1,4 @@
-- pipeline: "Terraform Plan"
+- pipeline: "Terraform Plan test"
   events:
     - type: "PUSH"
   actions:
